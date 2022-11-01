@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app:  front-end
+spec:
+  selector: # the selector must match the template below i.e. app:front-end should exist below
+    matchLabels:
+      app:  front-end
+  replicas: 3
+  
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app:  front-end
+        name: production
+        ammar:  farooqi
+    spec:
+      # this section is unique for every kind i.e. kind is Pod here so we will initialize containers here
+      #in yaml list is identifid by - and containers is a list here
+
+      #error below because limits are not mentioned
+      containers: 
+        - name: nginx-container
+          image: nginx
+
