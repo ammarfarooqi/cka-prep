@@ -1,18 +1,28 @@
-apiVersion: v1 
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: kube-practice
+  name: deployment
   labels:
-    name: kube-practice
-    type: front-end
-
+    app: front-end
 spec:
-  containers: #this is an array
-  - name: kube-practice # - tells that this is the first element in this list , we cannot use camel case here
-    image: nginx
-    resources:
-      limits:
-        memory: "128Mi"
-        cpu: "500m"
-    ports:
-      - containerPort: 40
+  selector: # the selector must match the template below i.e. app:front-end should exist below
+    # Deployment automatically creates replica sets, template and selector is required in yaml file of deployment
+    matchLabels:
+      app: front-end
+  replicas: 3
+
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: front-end
+        name: production
+        ammar: farooqi
+    spec:
+      # this section is unique for every kind i.e. kind is Pod here so we will initialize containers here
+      #in yaml list is identifid by - and containers is a list here
+
+      #error below because limits are not mentioned
+      containers:
+        - name: nginx-container
+          image: nginx

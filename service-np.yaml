@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-Services
+spec:
+  type: NodePort
+  ports: #only port is mandototy for the rest default valyes are assigned
+    - port: 80
+      targetPort: 80
+      nodePort: 3008
+  selector:
+    type: front-end 
